@@ -1,0 +1,49 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+#app {
+  background-image: radial-gradient(
+    circle,
+    #c9c9c9,
+    #929292,
+    #5f5f5f,
+    #313131,
+    #000000
+  );
+}
+
+.start-btn {
+  animation: start 2.5s linear;
+}
+
+.start-btn-active {
+  animation: start 1.5s linear reverse;
+}
+
+@keyframes start {
+  0% {
+    content-visibility: hidden;
+    scale: 0;
+    width: 50px;
+
+    border-radius: 9999px;
+  }
+  25% {
+    width: 50px;
+    scale: 0, 25;
+    content-visibility: hidden;
+  }
+
+  75% {
+    width: 50px;
+    content-visibility: hidden;
+    scale: 0, 75;
+  }
+
+  100% {
+    content-visibility: unset;
+    scale: 1;
+    @apply btn-wide;
+  }
+}
