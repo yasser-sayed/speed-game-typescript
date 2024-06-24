@@ -6,33 +6,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Type Speed Game</title>
   </head>
-  <body>
-    <div id="app" class="min-h-screen px-8">
+  <body class="overflow-hidden">
+    <div id="app" class="h-auto px-8 text-white min-h-screen">
       <video
+        width="3000px"
         autoplay
         loop
         muted
         plays-inline
-        class="background-clip overflow-y-hidden overflow-x-hidden"
+        class="background-clip min-w-fit"
       >
         <source src="public/5157-183300197_large.mp4" type="video/mp4" />
       </video>
 
-      <div class="min-h-screen flex items-center justify-evenly flex-col">
-        <div class="flex justify-around items-center text-black w-full">
-          <h3 class="text-xl font-bold">score : 4</h3>
-          <h3 class="text-xl font-bold">left trys: 3</h3>
-        </div>
-
-        <h1 class="text-3xl font-bold text-black">type : span</h1>
-
-        <input
-          id="txtInp"
-          type="text"
-          placeholder="Type here"
-          class="input input-bordered w-full max-w-xs"
-        />
-      </div>
+      <div id="page"></div>
     </div>
     <script type="module" src="/src/main.ts"></script>
   </body>
