@@ -8,11 +8,23 @@
   </head>
   <body>
     <div id="app" class="min-h-screen px-8">
-      <div class="min-h-screen flex items-center justify-center flex-row">
-        <div class="flex justify-evenly items-center">
-          <h3>score : 4</h3>
-          <h3></h3>
+      <video
+        autoplay
+        loop
+        muted
+        plays-inline
+        class="background-clip overflow-y-hidden overflow-x-hidden"
+      >
+        <source src="public/5157-183300197_large.mp4" type="video/mp4" />
+      </video>
+
+      <div class="min-h-screen flex items-center justify-evenly flex-col">
+        <div class="flex justify-around items-center text-black w-full">
+          <h3 class="text-xl font-bold">score : 4</h3>
+          <h3 class="text-xl font-bold">left trys: 3</h3>
         </div>
+
+        <h1 class="text-3xl font-bold text-black">type : span</h1>
 
         <input
           id="txtInp"
