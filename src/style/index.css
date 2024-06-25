@@ -9,6 +9,7 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+  transition-duration: 1s;
 }
 
 #app {
@@ -16,13 +17,32 @@
 }
 
 .start-btn {
-  animation: start 2.5s linear;
+  animation: start 2s linear;
+}
+.game-page {
+  animation: game 1s linear;
 }
 
 .start-btn-active {
-  animation: start 1.5s linear reverse;
+  animation: start 1s linear reverse;
 }
 
+.background-clip {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  z-index: -1;
+}
+
+@keyframes game {
+  0% {
+    scale: 0;
+  }
+
+  100% {
+    scale: 1;
+  }
+}
 @keyframes start {
   0% {
     content-visibility: hidden;
@@ -48,11 +68,4 @@
     scale: 1;
     @apply btn-wide;
   }
-}
-
-.background-clip {
-  position: absolute;
-  top: 0px;
-  right: 0px;
-  z-index: -1;
 }
