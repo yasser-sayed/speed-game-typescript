@@ -17,7 +17,9 @@ interface GameSettings {
 }
 
 class Game implements GameSettings {
-  public static highScore: number = 0;
+  public static highScore: number = localStorage.highScore
+    ? localStorage.highScore
+    : ((localStorage.highScore = 0), 0);
 
   constructor(
     public timer: number,

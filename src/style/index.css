@@ -69,3 +69,25 @@
     @apply btn-wide;
   }
 }
+
+.message-effect {
+  animation: message 1s linear;
+}
+
+@keyframes message {
+  0% {
+    scale: 9;
+  }
+  25% {
+    scale: 7;
+  }
+  50% {
+    scale: 5;
+  }
+  75% {
+    scale: 3;
+  }
+  100% {
+    scale: 1;
+  }
+}

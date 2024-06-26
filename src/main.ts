@@ -2,6 +2,12 @@ import Game from "./gameSettings";
 import "./style/index.css";
 
 const page: Element = <HTMLDivElement>document.querySelector("#page")!;
+const dialog: HTMLDialogElement = document.querySelector(
+  "#my_modal_5"
+) as HTMLDialogElement;
+const restart: HTMLButtonElement = document.querySelector(
+  ".restart"
+) as HTMLButtonElement;
 
 //home page
 const homePage: string = `<div class="h-screen w-full flex items-center justify-center">
@@ -14,7 +20,7 @@ const homePage: string = `<div class="h-screen w-full flex items-center justify-
 
 const gamePage: string = ` <div class="min-h-[80vh] w-full game-page flex items-center justify-evenly flex-col">
 <div class="w-full flex items-center justify-around">
-  <h1 id="message" class="text-2xl font-bold">hurry up!</h1>
+  <h1 id="message" class="text-2xl message-effect2 font-bold">hurry up!</h1>
 
   <div class="flex items-center justify-center gap-3 w-28">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
@@ -74,6 +80,7 @@ const startBtn: HTMLButtonElement = <HTMLButtonElement>(
 );
 
 let game = new Game(15, 3, 0, "lets do it", "");
+
 startBtn.addEventListener("click", (): void => {
   startBtn.classList.replace("start-btn", "start-btn-active");
 
@@ -87,6 +94,8 @@ startBtn.addEventListener("click", (): void => {
 //////////////////////////////////
 
 //game functionality
+
+//function elements update and game settings with setinternval
 function updateElements(): void {
   const msg: HTMLElement = <HTMLElement>document.querySelector("#message");
   const heart1: HTMLElement = <HTMLElement>document.querySelector("#heart1");
@@ -108,37 +117,74 @@ function updateElements(): void {
     heart1.setAttribute("fill", game.lifes >= 1 ? "#ff0000" : "#cccccc");
     heart2.setAttribute("fill", game.lifes >= 2 ? "#ff0000" : "#cccccc");
     heart3.setAttribute("fill", game.lifes >= 3 ? "#ff0000" : "#cccccc");
-    game.timerRun();
 
     if (!game.lifes) {
-      setInterval(() => {
+      if (localStorage.highScore < game.score) {
+        localStorage.highScore = game.score;
+      }
+      dialog.showModal();
+      restart.addEventListener("click", () => {
         game = new Game(15, 3, 0, "lets try again", "");
         game.getWord();
-      }, 4000);
+      });
     } else if (!game.timer) {
       game.minuseLife();
       game.setTimer(15);
       game.getWord();
+      game;
     }
+
+    if (game.timer < 6) {
+      game.setMessage("hurry up!");
+
+      //message animation
+      msg.classList.add("message-effect");
+
+      setTimeout(() => {
+        msg.classList.remove("message-effect");
+      }, 1000);
+      ////////////////////
+
+      timer.classList.add("text-red-600");
+    } else {
+      timer.classList.remove("text-red-600");
+    }
+  }, 500);
+
+  setInterval(() => {
+    game.timerRun();
   }, 1000);
 }
+/////////////////////////////////////////////////////////////////////
 
+//function handle input text
 function inpHandler(): void {
+  const msg: HTMLElement = <HTMLElement>document.querySelector("#message");
   const txtInp: HTMLInputElement = <HTMLInputElement>(
     document.querySelector("#txtInp")
   );
   let inpVal: string = "";
 
-  txtInp.addEventListener("change", (event) => {
+  txtInp.addEventListener("keyup", (event) => {
     const target = event.target as HTMLInputElement;
     inpVal = target.value;
 
     if (inpVal == game.word) {
       game.setScore(game.score + 5);
-      game.timer > 10 && game.setMessage("perfect");
+      game.setMessage(game.timer > 10 ? "perfect" : "keep going!");
+
+      //message animation
+      msg.classList.add("message-effect");
+
+      setTimeout(() => {
+        msg.classList.remove("message-effect");
+      }, 1000);
+      //////////////////////////
+
       game.setTimer(15);
       game.getWord();
       target.value = "";
     }
   });
 }
+//////////////////////////////////////////////
